@@ -11,8 +11,8 @@ class SOM:
     Training Algorithm:
     ------------------------------------------------------------
     initialize weight vectors
-    t = 0
     for (epoch = 1,..., Nepochs)
+        t = 0
         interpolate new values for α(t) and σ (t)
             for (record = 1,..., Nrecords)
                 t = t + 1
@@ -61,6 +61,7 @@ class SOM:
         if resetWeights:
             self.initialize()
         num_rows = data.shape[0]
+        indices = np.arange(num_rows)
         self.time_constant = num_epochs / np.log(self.init_radius)
 
         # visualization
@@ -78,10 +79,16 @@ class SOM:
             if i % vis_interval == 0:
                 if fig is not None:
                     self.show_plot(fig, i/vis_interval, i)
-                print(" SOM training epoches %d" % i)
+                print("SOM training epoches %d" % i)
+                print("neighborhood radius ", radius)
+                print("learning rate ", learning_rate)
+                print("-------------------------------------")
+
+            # shuffling data
+            np.random.shuffle(indices)
 
             # for (record = 1,..., Nrecords)
-            for record in range(num_rows):
+            for record in indices:
                 row_t = data[record, :]
 
                 # find its Best Matching Unit
