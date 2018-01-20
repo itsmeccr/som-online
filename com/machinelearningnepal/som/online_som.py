@@ -43,7 +43,7 @@ class SOM:
         :return:
         """
         self.network_dimensions = np.array([net_x_dim, net_y_dim])
-        self.init_radius = max(self.network_dimensions[0], self.network_dimensions[1])
+        self.init_radius = min(self.network_dimensions[0], self.network_dimensions[1])
         # initialize weight vectors
         self.num_features = num_features
         self.initialize()
